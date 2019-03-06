@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebAdminsUi.Models
@@ -48,10 +49,9 @@ namespace WebAdminsUi.Models
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Username is required")]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,8 +64,12 @@ namespace WebAdminsUi.Models
 
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "Username is required")]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Email Address is required")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -79,6 +83,30 @@ namespace WebAdminsUi.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [DefaultValue(UserRoles.SimpleUser)]
+        public UserRoles Role { get; set; }
+
+        [DefaultValue(UserStatus.Pending)]
+        public UserStatus Status { get; set; }
+    }
+
+    public enum UserRoles
+    {
+        [Description("Simple User")]
+        SimpleUser,
+        Manager,
+        Analyst,
+        Architect,
+        Programmer,
+        Tester
+    }
+
+    public enum UserStatus
+    {
+        Pending,
+        Active,
+        Deleted
     }
 
     public class ResetPasswordViewModel

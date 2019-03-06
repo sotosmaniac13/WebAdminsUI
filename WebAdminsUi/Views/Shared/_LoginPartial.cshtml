@@ -5,18 +5,39 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+    @{
+        if (User.IsInRole("Manager"))
+        {
+            <li>@Html.ActionLink("Dashboard", "ManagersDashboard", "Dashboard")</li>
+        }
+        else if (User.IsInRole("Analyst"))
+        {
+            <li>@Html.ActionLink("Dashboard", "AnalystsDashboard", "Dashboard")</li>
+        }
+        else if (User.IsInRole("Architect"))
+        {
+            <li>@Html.ActionLink("Dashboard", "ArchitectsDashboard", "Dashboard")</li>
+        }
+        else if (User.IsInRole("Programmer"))
+        {
+            <li>@Html.ActionLink("Dashboard", "ProgrammersDashboard", "Dashboard")</li>
+        }
+        else if (User.IsInRole("Tester"))
+        {
+            <li>@Html.ActionLink("Dashboard", "TestersDashboard", "Dashboard")</li>
+        }
+    }
+
+    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+</ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
     </ul>
 }
