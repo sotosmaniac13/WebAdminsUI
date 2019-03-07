@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebAdminsUi.DatabaseOperations;
+using WebAdminsUi.Models;
 
 namespace WebAdminsUi.Controllers
 {
@@ -17,8 +19,27 @@ namespace WebAdminsUi.Controllers
         [Authorize(Roles ="Manager")]
         public ActionResult ManagersDashboard()
         {
-            return View();
+            var dbOps = new DatabaseOps();
+            var pendingUsers = dbOps.GetPendingUsers();
+
+            return View(pendingUsers);
         }
+
+        public ActionResult ApproveNewUser(string id)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var user = db.Users.Where(u => u.Id == id).SingleOrDefault();
+                user.Status = UserStatus.Active;
+
+                db.Users.Attach(user);
+                db.Entry(user).Property(u => u.Status).IsModified = true;
+                db.SaveChanges();
+
+                return RedirectToAction("ManagersDashboard");
+            }
+        }
+
 
         [Authorize(Roles = "Analyst")]
         public ActionResult AnalystsDashboard()

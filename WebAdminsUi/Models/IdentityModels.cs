@@ -33,6 +33,7 @@ namespace WebAdminsUi.Models
             return new ApplicationDbContext();
         }
 
+
         //public System.Data.Entity.DbSet<WebAdminsUi.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

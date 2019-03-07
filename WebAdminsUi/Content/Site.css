@@ -31,6 +31,9 @@ footer {
     position: fixed;
 }
 
+html {
+    background-color: darkgrey;
+}
 
 /* The background image used on Welcome page*/
 .bg {

@@ -1,5 +1,47 @@
-﻿@{
+﻿@model IEnumerable<WebAdminsUi.Models.ApplicationUser>
+
+@{
     ViewBag.Title = "ManagersDashboard";
 }
 
 <h2>ManagersDashboard</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Approve User", "ApproveNewUser", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
