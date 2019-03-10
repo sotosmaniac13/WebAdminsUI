@@ -1,0 +1,66 @@
+﻿@model WebAdminsUi.Models.Document
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Document</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocumentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompletedByAnalyst)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompletedByAnalyst)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompletedByArchitect)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompletedByArchitect)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompletedByProgrammer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompletedByProgrammer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompletedByTester)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompletedByTester)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DocumentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

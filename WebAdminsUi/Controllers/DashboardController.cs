@@ -8,26 +8,31 @@ using WebAdminsUi.Models;
 
 namespace WebAdminsUi.Controllers
 {
+    [Authorize(Roles = "Manager, Analyst, Architect, Programmer, Tester")]
     public class DashboardController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
+        DatabaseOps dbOps = new DatabaseOps();
+
+
         // GET: Dashboard
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
         
+
         [Authorize(Roles ="Manager")]
         public ActionResult ManagersDashboard()
         {
-            var dbOps = new DatabaseOps();
             var pendingUsers = dbOps.GetPendingUsers();
 
             return View(pendingUsers);
         }
-
+        [Authorize(Roles = "Manager")]
         public ActionResult ApproveNewUser(string id)
         {
-            using (var db = new ApplicationDbContext())
+            using (db)
             {
                 var user = db.Users.Where(u => u.Id == id).SingleOrDefault();
                 user.Status = UserStatus.Active;
@@ -41,28 +46,28 @@ namespace WebAdminsUi.Controllers
         }
 
 
-        [Authorize(Roles = "Analyst")]
-        public ActionResult AnalystsDashboard()
-        {
-            return View();
-        }
+        //[Authorize(Roles = "Analyst")]
+        //public ActionResult AnalystsDashboard()
+        //{
+            
+        //}
 
-        [Authorize(Roles = "Architect")]
-        public ActionResult ArchitectsDashboard()
-        {
-            return View();
-        }
+        //[Authorize(Roles = "Architect")]
+        //public ActionResult ArchitectsDashboard()
+        //{
+        //    return View("Index", dbOps.ArchitectsDocs());
+        //}
 
-        [Authorize(Roles = "Programmer")]
-        public ActionResult ProgrammersDashboard()
-        {
-            return View();
-        }
+        //[Authorize(Roles = "Programmer")]
+        //public ActionResult ProgrammersDashboard()
+        //{
+        //    return View("Index", dbOps.ProgrammersDocs());
+        //}
 
-        [Authorize(Roles = "Tester")]
-        public ActionResult TestersDashboard()
-        {
-            return View();
-        }
+        //[Authorize(Roles = "Tester")]
+        //public ActionResult TestersDashboard()
+        //{
+        //    return View("Index", dbOps.TestersDocs());
+        //}
     }
 }

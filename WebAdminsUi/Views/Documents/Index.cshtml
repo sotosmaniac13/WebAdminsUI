@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebAdminsUi.Models.Document>
+
+@{
+    ViewBag.Title = "Documents";
+}
+
+<h2>Documents</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            Completed
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentName)
+        </td>
+        <td>
+            @Html.Raw(item.Description)
+        </td>
+        @if (User.IsInRole("Analyst"))
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletedByAnalyst)
+            </td>
+        }
+        @if (User.IsInRole("Architect"))
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletedByArchitect)
+            </td>
+        }
+        @if (User.IsInRole("Programmer"))
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletedByProgrammer)
+            </td>
+        }
+        @if (User.IsInRole("Tester"))
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletedByTester)
+            </td>
+        }
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.DocumentId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.DocumentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.DocumentId })
+        </td>
+    </tr>
+    }
+
+</table>

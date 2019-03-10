@@ -78,16 +78,15 @@ namespace WebAdminsUi.Migrations
             }
 
 
-            //TODO Write all initial seeding data (roles and a manager to approve users)
-            //if (!context.Users.Any(u => u.UserName == "manager"))
-            //{
-            //    var store = new UserStore<ApplicationUser>(context);
-            //    var manager = new UserManager<ApplicationUser>(store);
-            //    var user = new ApplicationUser { UserName = "manager", Status = UserStatus.Active };
+            if (!context.Users.Any(u => u.UserName == "manager"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "manager", Status = UserStatus.Active };
 
-            //    manager.Create(user, "Manager1@");
-            //    manager.AddToRole(user.Id, "Manager");
-            //}
+                manager.Create(user, "Manager1@");
+                manager.AddToRole(user.Id, "Manager");
+            }
         }
     }
 }

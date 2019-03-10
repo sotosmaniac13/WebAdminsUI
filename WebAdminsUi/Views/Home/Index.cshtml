@@ -3,6 +3,11 @@
     ViewBag.Title = "Welcome";
 }
 
+@if (TempData["Success"] != null)
+{
+    <h4>@TempData["Success"]</h4>
+}
+
 <hr />
 <div class="jumbotron">
     <div class="container">
@@ -10,3 +15,4 @@
         <p id="welcome2">WebAdminsUI</p>
     </div>
 </div>
+

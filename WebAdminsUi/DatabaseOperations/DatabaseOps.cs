@@ -8,9 +8,12 @@ namespace WebAdminsUi.DatabaseOperations
 {
     public class DatabaseOps
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        //This method is used during Logging In to check if a new user has been approved by a Manager
         public bool CheckUserStatusIfActive(LoginViewModel model)
         {
-            using (var db = new ApplicationDbContext())
+            using (db)
             {
                 var userStatus = db.Users.First(u => u.UserName == model.Username).Status;
                 
@@ -27,7 +30,7 @@ namespace WebAdminsUi.DatabaseOperations
         {
             var pendingUsers = new List<ApplicationUser>();
 
-            using (var db = new ApplicationDbContext())
+            using (db)
             {
                 var users = db.Users.Where(u => u.Status == UserStatus.Pending);
 
@@ -36,8 +39,28 @@ namespace WebAdminsUi.DatabaseOperations
                     pendingUsers.Add(user);
                 }
             }
-
             return pendingUsers;
+        }
+
+
+        public List<Document> AnalystsDocs()
+        {
+            return db.Documents.Where(d => d.CompletedByAnalyst == false && d.CompletedByArchitect == false && d.CompletedByProgrammer == false && d.CompletedByTester == false).ToList();
+        }
+
+        public List<Document> ArchitectsDocs()
+        {
+            return db.Documents.Where(d => d.CompletedByAnalyst == true && d.CompletedByArchitect == false && d.CompletedByProgrammer == false && d.CompletedByTester == false).ToList();
+        }
+
+        public List<Document> ProgrammersDocs()
+        {
+            return db.Documents.Where(d => d.CompletedByAnalyst == true && d.CompletedByArchitect == true && d.CompletedByProgrammer == false && d.CompletedByTester == false).ToList();
+        }
+
+        public List<Document> TestersDocs()
+        {
+            return db.Documents.Where(d => d.CompletedByAnalyst == true && d.CompletedByArchitect == true && d.CompletedByProgrammer == true && d.CompletedByTester == false).ToList();
         }
     }
 }

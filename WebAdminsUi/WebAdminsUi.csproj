@@ -172,6 +172,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DatabaseOperations\DatabaseOps.cs" />
@@ -182,8 +183,17 @@
     <Compile Include="Migrations\201903052231272_InitialCreate.Designer.cs">
       <DependentUpon>201903052231272_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903080808562_SecondMig.cs" />
+    <Compile Include="Migrations\201903080808562_SecondMig.Designer.cs">
+      <DependentUpon>201903080808562_SecondMig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903091114404_ThirdMig.cs" />
+    <Compile Include="Migrations\201903091114404_ThirdMig.Designer.cs">
+      <DependentUpon>201903091114404_ThirdMig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Document.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -254,11 +264,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Dashboard\AnalystsDashboard.cshtml" />
-    <Content Include="Views\Dashboard\ArchitectsDashboard.cshtml" />
-    <Content Include="Views\Dashboard\ProgrammersDashboard.cshtml" />
-    <Content Include="Views\Dashboard\TestersDashboard.cshtml" />
     <Content Include="Views\Dashboard\ManagersDashboard.cshtml" />
+    <Content Include="Views\Documents\Create.cshtml" />
+    <Content Include="Views\Documents\Delete.cshtml" />
+    <Content Include="Views\Documents\Details.cshtml" />
+    <Content Include="Views\Documents\Edit.cshtml" />
+    <Content Include="Views\Documents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -271,6 +282,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903052231272_InitialCreate.resx">
       <DependentUpon>201903052231272_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903080808562_SecondMig.resx">
+      <DependentUpon>201903080808562_SecondMig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903091114404_ThirdMig.resx">
+      <DependentUpon>201903091114404_ThirdMig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
