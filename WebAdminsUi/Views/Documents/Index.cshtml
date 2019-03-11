@@ -6,8 +6,46 @@
 
 <h2>Documents</h2>
 
+<hr />
+
+@if (User.IsInRole("Analyst"))
+{
+    <div class="container">
+
+        You are an Analyst. Your job is to analyse the system. On this page, you can create and edit documents.
+        When your analysis is finished, you can mark them as "completed" and they will be forwarded to a system's Architect.
+
+    </div>
+}
+
+@if (User.IsInRole("Architect"))
+{
+    <div class="container">
+        You are an Architect. Your job is to design the system’s structure. On this page, you can view documents sent by an Analyst and add your work on them.
+        When your design is finished, you can mark them as "completed" and they will be forwarded to a system's Programmer.
+    </div>
+}
+
+@if (User.IsInRole("Programmer"))
+{
+    <div class="container">
+        You are a Programmer. Your job is to implement changes to the system. On this page, you can view documents sent by an Architect.
+        When your job is finished, you can mark them as "completed" and they will be forwarded to a system's Tester.
+    </div>
+}
+
+@if (User.IsInRole("Tester"))
+{
+    <div class="container">
+        You are a Tester. Your job is to test changes that a Programmer implemented to the system. On this page, you can view documents sent by a Programmer.
+        When your tests are finished, you can mark them as "completed" and they will be ready for deployment.
+    </div>
+}
+
+<hr />
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("View Completed Documents", "Completed")
 </p>
 <table class="table">
     <tr>
@@ -25,43 +63,43 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DocumentName)
-        </td>
-        <td>
-            @Html.Raw(item.Description)
-        </td>
-        @if (User.IsInRole("Analyst"))
-        {
+        <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CompletedByAnalyst)
+                @Html.DisplayFor(modelItem => item.DocumentName)
             </td>
-        }
-        @if (User.IsInRole("Architect"))
-        {
             <td>
-                @Html.DisplayFor(modelItem => item.CompletedByArchitect)
+                @Html.Raw(item.Description)
             </td>
-        }
-        @if (User.IsInRole("Programmer"))
-        {
+            @if (User.IsInRole("Analyst"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompletedByAnalyst)
+                </td>
+            }
+            @if (User.IsInRole("Architect"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompletedByArchitect)
+                </td>
+            }
+            @if (User.IsInRole("Programmer"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompletedByProgrammer)
+                </td>
+            }
+            @if (User.IsInRole("Tester"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompletedByTester)
+                </td>
+            }
             <td>
-                @Html.DisplayFor(modelItem => item.CompletedByProgrammer)
+                @Html.ActionLink("Edit", "Edit", new { id = item.DocumentId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.DocumentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.DocumentId })
             </td>
-        }
-        @if (User.IsInRole("Tester"))
-        {
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedByTester)
-            </td>
-        }
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.DocumentId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.DocumentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.DocumentId })
-        </td>
-    </tr>
+        </tr>
     }
 
 </table>

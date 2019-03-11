@@ -40,6 +40,29 @@ namespace WebAdminsUi.Controllers
             return View();
         }
 
+
+        public ActionResult Completed()
+        {
+            if (User.IsInRole("Analyst"))
+            {
+                return View(dbOps.CompletedAnalystsDocs());
+            }
+            else if (User.IsInRole("Architect"))
+            {
+                return View(dbOps.CompletedArchitectsDocs());
+            }
+            else if (User.IsInRole("Programmer"))
+            {
+                return View(dbOps.CompletedProgrammersDocs());
+            }
+            else if (User.IsInRole("Tester"))
+            {
+                return View(dbOps.CompletedTestersDocs());
+            }
+            return View();
+        }
+
+
         // GET: Documents/Details/5
         public ActionResult Details(int? id)
         {

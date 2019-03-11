@@ -62,5 +62,28 @@ namespace WebAdminsUi.DatabaseOperations
         {
             return db.Documents.Where(d => d.CompletedByAnalyst == true && d.CompletedByArchitect == true && d.CompletedByProgrammer == true && d.CompletedByTester == false).ToList();
         }
+
+
+        //These methods return completed documents by each role
+
+        public List<Document> CompletedAnalystsDocs()
+        {
+            return db.Documents.Where(d => d.CompletedByAnalyst == true).ToList();
+        }
+
+        public List<Document> CompletedArchitectsDocs()
+        {
+            return db.Documents.Where(d => d.CompletedByArchitect == true).ToList();
+        }
+
+        public List<Document> CompletedProgrammersDocs()
+        {
+            return db.Documents.Where(d => d.CompletedByProgrammer == true).ToList();
+        }
+
+        public List<Document> CompletedTestersDocs()
+        {
+            return db.Documents.Where(d => d.CompletedByTester == true).ToList();
+        }
     }
 }

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebAdminsUi.Models.Document>
+
+@{
+    ViewBag.Title = "Completed";
+}
+
+<h2>Completed Documents</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("View Pending Documents", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentName)
+        </td>
+        <td>
+            @Html.Raw(item.Description)
+        </td>
+    </tr>
+}
+
+</table>
